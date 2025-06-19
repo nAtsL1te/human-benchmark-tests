@@ -234,7 +234,7 @@
                         Results
                     </button>
                     <button
-                        class="block w-full text-left text-white hover:text-purple-200 transition-colors"
+                        class="block w-all text-left text-white hover:text-purple-200 transition-colors"
                         onclick="showSection('about')"
                     >
                         About
@@ -297,221 +297,18 @@
                                 </div>
                                 <h3 class="text-xl font-semibold mb-2">Choice Reaction</h3>
                                 <p class="text-gray-600">
-                                    Test complex decision-making with multiple choice scenarios
+                                    Test your decision-making skills with multiple choice reactions
                                 </p>
-                            </div>
-                        </div>
-                    </section>
-
-                    <!-- Tests Section -->
-                    <section id="tests-section" class="section-content hidden">
-                        <div class="text-center mb-8">
-                            <h2 class="text-3xl font-bold text-white mb-4">Reaction Tests</h2>
-                            <p class="text-white/80">
-                                Choose a test type to begin measuring your reaction time
-                            </p>
-                        </div>
-
-                        <!-- Test Selection -->
-                        <div id="test-selection" class="grid md:grid-cols-3 gap-6 mb-8">
-                            <button
-                                class="test-card bg-white rounded-xl p-6 text-center hover:transform hover:scale-105 transition-all duration-300"
-                                onclick="startTest('visual')"
-                            >
-                                <div
-                                    class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4"
-                                >
-                                    <span class="text-2xl">👁️</span>
-                                </div>
-                                <h3 class="text-xl font-semibold mb-2">Visual Test</h3>
-                                <p class="text-gray-600 text-sm">
-                                    Click when the screen changes color
-                                </p>
-                            </button>
-                            <button
-                                class="test-card bg-white rounded-xl p-6 text-center hover:transform hover:scale-105 transition-all duration-300"
-                                onclick="startTest('audio')"
-                            >
-                                <div
-                                    class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4"
-                                >
-                                    <span class="text-2xl">🔊</span>
-                                </div>
-                                <h3 class="text-xl font-semibold mb-2">Audio Test</h3>
-                                <p class="text-gray-600 text-sm">Click when you hear the sound</p>
-                            </button>
-                            <button
-                                class="test-card bg-white rounded-xl p-6 text-center hover:transform hover:scale-105 transition-all duration-300"
-                                onclick="startTest('choice')"
-                            >
-                                <div
-                                    class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4"
-                                >
-                                    <span class="text-2xl">🎯</span>
-                                </div>
-                                <h3 class="text-xl font-semibold mb-2">Choice Test</h3>
-                                <p class="text-gray-600 text-sm">Choose the correct response</p>
-                            </button>
-                        </div>
-
-                        <!-- Test Arena -->
-                        <div id="test-arena" class="hidden">
-                            <div class="stats-card rounded-2xl p-8">
-                                <div class="text-center mb-6">
-                                    <h3 id="test-title" class="text-2xl font-bold mb-2">
-                                        Test Title
-                                    </h3>
-                                    <p id="test-subtitle" class="text-gray-600">
-                                        Test instructions
-                                    </p>
-                                </div>
-
-                                <div id="test-display" class="mb-6">
-                                    <div id="reaction-area" class="reaction-area test-ready">
-                                        Click to Start
-                                    </div>
-                                </div>
-
-                                <div id="test-results" class="hidden text-center">
-                                    <div class="mb-4">
-                                        <div
-                                            class="text-4xl font-bold text-green-600"
-                                            id="reaction-time"
-                                        >
-                                            -- ms
-                                        </div>
-                                        <div class="text-gray-600">Reaction Time</div>
-                                    </div>
-                                    <div class="flex justify-center space-x-4">
-                                        <button
-                                            class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors"
-                                            onclick="restartTest()"
-                                        >
-                                            Try Again
-                                        </button>
-                                        <button
-                                            class="bg-gray-600 text-white px-6 py-2 rounded-lg hover:bg-gray-700 transition-colors"
-                                            onclick="backToSelection()"
-                                        >
-                                            Back to Tests
-                                        </button>
-                                    </div>
-                                </div>
-
-                                <div id="test-instructions" class="text-center text-gray-600 mt-4">
-                                    <p>Click the area above when you're ready to begin</p>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-
-                    <!-- Results Section -->
-                    <section id="results-section" class="section-content hidden">
-                        <div class="text-center mb-8">
-                            <h2 class="text-3xl font-bold text-white mb-4">Your Results</h2>
-                            <p class="text-white/80">
-                                Track your performance and see detailed analytics
-                            </p>
-                        </div>
-
-                        <!-- Statistics Cards -->
-                        <div class="grid md:grid-cols-4 gap-6 mb-8">
-                            <div class="stats-card rounded-xl p-6 text-center">
-                                <div class="text-2xl font-bold text-blue-600" id="avg-time">--</div>
-                                <div class="text-sm text-gray-600">Average Time</div>
-                            </div>
-                            <div class="stats-card rounded-xl p-6 text-center">
-                                <div class="text-2xl font-bold text-green-600" id="best-time">
-                                    --
-                                </div>
-                                <div class="text-sm text-gray-600">Best Time</div>
-                            </div>
-                            <div class="stats-card rounded-xl p-6 text-center">
-                                <div class="text-2xl font-bold text-purple-600" id="total-tests">
-                                    --
-                                </div>
-                                <div class="text-sm text-gray-600">Total Tests</div>
-                            </div>
-                            <div class="stats-card rounded-xl p-6 text-center">
-                                <div class="text-2xl font-bold text-orange-600" id="accuracy">
-                                    --
-                                </div>
-                                <div class="text-sm text-gray-600">Accuracy</div>
-                            </div>
-                        </div>
-
-                        <!-- Charts -->
-                        <div class="grid md:grid-cols-2 gap-6">
-                            <div class="stats-card rounded-xl p-6">
-                                <h3 class="text-lg font-semibold mb-4">Reaction Time Trend</h3>
-                                <canvas id="trend-chart"></canvas>
-                            </div>
-                            <div class="stats-card rounded-xl p-6">
-                                <h3 class="text-lg font-semibold mb-4">Test Type Distribution</h3>
-                                <canvas id="distribution-chart"></canvas>
-                            </div>
-                        </div>
-                    </section>
-
-                    <!-- About Section -->
-                    <section id="about-section" class="section-content hidden">
-                        <div class="stats-card rounded-2xl p-8">
-                            <h2 class="text-3xl font-bold mb-6">About Human Reaction Benchmark</h2>
-                            <div class="prose max-w-none">
-                                <p class="text-lg mb-6">
-                                    The Human Reaction Benchmark Test Tool is a comprehensive
-                                    platform designed to measure, analyze, and improve human
-                                    reaction times across various stimuli and scenarios.
-                                </p>
-
-                                <h3 class="text-2xl font-semibold mb-4">Features</h3>
-                                <ul class="list-disc list-inside mb-6 space-y-2">
-                                    <li>
-                                        Multiple test types: Visual, Audio, and Choice reaction
-                                        tests
-                                    </li>
-                                    <li>Real-time performance tracking and analytics</li>
-                                    <li>Interactive charts and data visualization</li>
-                                    <li>Responsive design for all devices</li>
-                                    <li>Comprehensive logging and debugging</li>
-                                    <li>Accessible interface following WCAG guidelines</li>
-                                </ul>
-
-                                <h3 class="text-2xl font-semibold mb-4">
-                                    Technical Implementation
-                                </h3>
-                                <ul class="list-disc list-inside mb-6 space-y-2">
-                                    <li>Built with modern JavaScript and ES6+ features</li>
-                                    <li>Styled with Tailwind CSS for responsive design</li>
-                                    <li>
-                                        Animated with Motion.dev (Framer Motion) for smooth
-                                        interactions
-                                    </li>
-                                    <li>Modular architecture with reusable components</li>
-                                    <li>Comprehensive testing suite</li>
-                                    <li>Performance optimized for production</li>
-                                </ul>
-
-                                <h3 class="text-2xl font-semibold mb-4">Use Cases</h3>
-                                <ul class="list-disc list-inside space-y-2">
-                                    <li>Gaming performance optimization</li>
-                                    <li>Sports training and assessment</li>
-                                    <li>Cognitive research and studies</li>
-                                    <li>Medical and neurological assessments</li>
-                                    <li>General fitness and wellness tracking</li>
-                                </ul>
                             </div>
                         </div>
                     </section>
                 </div>
             </main>
 
-            <!-- Footer -->
             <footer class="glass-effect p-6">
-                <div class="max-w-6xl mx-auto text-center text-white/80">
-                    <p>
-                        &copy; 2024 Human Reaction Benchmark Tool. Built with ❤️ for performance
-                        excellence.
+                <div class="max-w-6xl mx-auto text-center">
+                    <p class="text-white/80">
+                        &copy; 2023 Human Reaction Benchmark Tool. All rights reserved.
                     </p>
                 </div>
             </footer>
@@ -528,14 +325,6 @@
                 Clear
             </button>
         </div>
-
-        <!-- Scripts -->
-        <script src="./src/utils/logger.js"></script>
-        <script src="./src/utils/storage.js"></script>
-        <script src="./src/utils/animations.js"></script>
-        <script src="./src/components/TestEngine.js"></script>
-        <script src="./src/components/ResultsManager.js"></script>
-        <script src="./src/components/UIManager.js"></script>
-        <script src="./src/app.js"></script>
+        <script type="module" src="/src/app.js"></script>
     </body>
 </html>
