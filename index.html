@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+
+        <!-- SEO Optimization -->
+        <title>Human Reaction Benchmark Test Tool - Measure Your Reaction Time</title>
+        <meta
+            name="description"
+            content="Test and measure your reaction time with our advanced Human Reaction Benchmark Tool. Features visual, audio, and choice reaction tests with detailed analytics and performance tracking."
+        />
+        <meta
+            name="keywords"
+            content="reaction time test, human benchmark, performance testing, reaction speed, cognitive assessment, reflex test"
+        />
+        <meta name="author" content="Human Reaction Benchmark Tool" />
+
+        <!-- Open Graph Meta Tags -->
+        <meta property="og:title" content="Human Reaction Benchmark Test Tool" />
+        <meta
+            property="og:description"
+            content="Test and measure your reaction time with advanced benchmark tools"
+        />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://human-reaction-benchmark.com" />
+
+        <!-- Twitter Card Meta Tags -->
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Human Reaction Benchmark Test Tool" />
+        <meta
+            name="twitter:description"
+            content="Test and measure your reaction time with advanced benchmark tools"
+        />
+
+        <!-- Favicon -->
+        <link rel="icon" type="image/x-icon" href="./assets/favicon.ico" />
+
+        <!-- Tailwind CSS -->
+        <script src="https://cdn.tailwindcss.com"></script>
+
+        <!-- Framer Motion (Motion.dev) -->
+        <script src="https://unpkg.com/framer-motion@10.16.16/dist/framer-motion.umd.js"></script>
+
+        <!-- Chart.js -->
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+        <!-- Custom Styles -->
+        <style>
+            @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap");
+
+            * {
+                font-family: "Inter", sans-serif;
+            }
+
+            .gradient-bg {
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            }
+
+            .glass-effect {
+                backdrop-filter: blur(16px) saturate(180%);
+                background-color: rgba(255, 255, 255, 0.1);
+                border: 1px solid rgba(255, 255, 255, 0.2);
+            }
+
+            .pulse-animation {
+                animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+            }
+
+            @keyframes pulse {
+                0%,
+                100% {
+                    opacity: 1;
+                }
+                50% {
+                    opacity: 0.5;
+                }
+            }
+
+            .reaction-button {
+                transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            }
+
+            .reaction-button:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+                    0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            }
+
+            .stats-card {
+                background: rgba(255, 255, 255, 0.95);
+                backdrop-filter: blur(10px);
+                border: 1px solid rgba(255, 255, 255, 0.3);
+                box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            }
+
+            .test-active {
+                background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+            }
+
+            .test-ready {
+                background: linear-gradient(45deg, #4834d4, #686de0);
+            }
+
+            .test-complete {
+                background: linear-gradient(45deg, #00d2d3, #54a0ff);
+            }
+
+            .test-waiting {
+                background: linear-gradient(45deg, #ffa726, #ff7043);
+            }
+
+            .reaction-area {
+                min-height: 400px;
+                cursor: pointer;
+                user-select: none;
+                border-radius: 20px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 2rem;
+                font-weight: bold;
+                color: white;
+                text-align: center;
+                transition: all 0.3s ease;
+            }
+
+            .hidden {
+                display: none !important;
+            }
+
+            .section-content {
+                animation: fadeIn 0.5s ease-in-out;
+            }
+
+            @keyframes fadeIn {
+                from {
+                    opacity: 0;
+                    transform: translateY(20px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+        </style>
+    </head>
+    <body class="min-h-screen gradient-bg">
+        <!-- Loading Screen -->
+        <div
+            id="loading-screen"
+            class="fixed inset-0 z-50 flex items-center justify-center bg-gray-900 bg-opacity-80"
+        >
+            <div class="text-center">
+                <div
+                    class="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-white"
+                ></div>
+                <p class="mt-4 text-white text-lg">Loading Reaction Benchmark Tool...</p>
+            </div>
+        </div>
+
+        <!-- Main Application Container -->
+        <div id="app" class="min-h-screen flex flex-col">
+            <!-- Header -->
+            <header class="glass-effect p-6">
+                <div class="max-w-6xl mx-auto flex items-center justify-between">
+                    <div class="flex items-center space-x-3">
+                        <div
+                            class="w-10 h-10 bg-white rounded-full flex items-center justify-center"
+                        >
+                            <span class="text-purple-600 font-bold text-xl">⚡</span>
+                        </div>
+                        <h1 class="text-2xl font-bold text-white">Human Reaction Benchmark</h1>
+                    </div>
+                    <nav class="hidden md:flex space-x-6">
+                        <button
+                            class="text-white hover:text-purple-200 transition-colors"
+                            onclick="showSection('home')"
+                        >
+                            Home
+                        </button>
+                        <button
+                            class="text-white hover:text-purple-200 transition-colors"
+                            onclick="showSection('tests')"
+                        >
+                            Tests
+                        </button>
+                        <button
+                            class="text-white hover:text-purple-200 transition-colors"
+                            onclick="showSection('results')"
+                        >
+                            Results
+                        </button>
+                        <button
+                            class="text-white hover:text-purple-200 transition-colors"
+                            onclick="showSection('about')"
+                        >
+                            About
+                        </button>
+                    </nav>
+                    <button class="md:hidden text-white" onclick="toggleMobileMenu()">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M4 6h16M4 12h16M4 18h16"
+                            ></path>
+                        </svg>
+                    </button>
+                </div>
+            </header>
+
+            <!-- Mobile Menu -->
+            <div id="mobile-menu" class="hidden glass-effect">
+                <div class="px-6 py-4 space-y-3">
+                    <button
+                        class="block w-full text-left text-white hover:text-purple-200 transition-colors"
+                        onclick="showSection('home')"
+                    >
+                        Home
+                    </button>
+                    <button
+                        class="block w-full text-left text-white hover:text-purple-200 transition-colors"
+                        onclick="showSection('tests')"
+                    >
+                        Tests
+                    </button>
+                    <button
+                        class="block w-full text-left text-white hover:text-purple-200 transition-colors"
+                        onclick="showSection('results')"
+                    >
+                        Results
+                    </button>
+                    <button
+                        class="block w-full text-left text-white hover:text-purple-200 transition-colors"
+                        onclick="showSection('about')"
+                    >
+                        About
+                    </button>
+                </div>
+            </div>
+
+            <!-- Main Content -->
+            <main class="flex-1 p-6">
+                <div class="max-w-6xl mx-auto">
+                    <!-- Home Section -->
+                    <section id="home-section" class="section-content">
+                        <div class="text-center mb-12">
+                            <h2 class="text-4xl md:text-6xl font-bold text-white mb-6">
+                                Test Your Reaction Time
+                            </h2>
+                            <p class="text-xl text-white/80 mb-8 max-w-2xl mx-auto">
+                                Measure and improve your reaction speed with our advanced benchmark
+                                tool. Track your progress, compare with others, and optimize your
+                                performance.
+                            </p>
+                            <button
+                                class="reaction-button bg-white text-purple-600 px-8 py-4 rounded-full font-semibold text-lg hover:bg-purple-50"
+                                onclick="showSection('tests')"
+                            >
+                                Start Testing
+                            </button>
+                        </div>
+
+                        <!-- Feature Cards -->
+                        <div class="grid md:grid-cols-3 gap-8 mb-12">
+                            <div class="stats-card rounded-2xl p-6 text-center">
+                                <div
+                                    class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4"
+                                >
+                                    <span class="text-2xl">👁️</span>
+                                </div>
+                                <h3 class="text-xl font-semibold mb-2">Visual Reaction</h3>
+                                <p class="text-gray-600">
+                                    Test your response to visual stimuli with precise timing
+                                    measurements
+                                </p>
+                            </div>
+                            <div class="stats-card rounded-2xl p-6 text-center">
+                                <div
+                                    class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4"
+                                >
+                                    <span class="text-2xl">🔊</span>
+                                </div>
+                                <h3 class="text-xl font-semibold mb-2">Audio Reaction</h3>
+                                <p class="text-gray-600">
+                                    Measure your reaction time to audio cues and sound signals
+                                </p>
+                            </div>
+                            <div class="stats-card rounded-2xl p-6 text-center">
+                                <div
+                                    class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4"
+                                >
+                                    <span class="text-2xl">🎯</span>
+                                </div>
+                                <h3 class="text-xl font-semibold mb-2">Choice Reaction</h3>
+                                <p class="text-gray-600">
+                                    Test complex decision-making with multiple choice scenarios
+                                </p>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Tests Section -->
+                    <section id="tests-section" class="section-content hidden">
+                        <div class="text-center mb-8">
+                            <h2 class="text-3xl font-bold text-white mb-4">Reaction Tests</h2>
+                            <p class="text-white/80">
+                                Choose a test type to begin measuring your reaction time
+                            </p>
+                        </div>
+
+                        <!-- Test Selection -->
+                        <div id="test-selection" class="grid md:grid-cols-3 gap-6 mb-8">
+                            <button
+                                class="test-card bg-white rounded-xl p-6 text-center hover:transform hover:scale-105 transition-all duration-300"
+                                onclick="startTest('visual')"
+                            >
+                                <div
+                                    class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4"
+                                >
+                                    <span class="text-2xl">👁️</span>
+                                </div>
+                                <h3 class="text-xl font-semibold mb-2">Visual Test</h3>
+                                <p class="text-gray-600 text-sm">
+                                    Click when the screen changes color
+                                </p>
+                            </button>
+                            <button
+                                class="test-card bg-white rounded-xl p-6 text-center hover:transform hover:scale-105 transition-all duration-300"
+                                onclick="startTest('audio')"
+                            >
+                                <div
+                                    class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4"
+                                >
+                                    <span class="text-2xl">🔊</span>
+                                </div>
+                                <h3 class="text-xl font-semibold mb-2">Audio Test</h3>
+                                <p class="text-gray-600 text-sm">Click when you hear the sound</p>
+                            </button>
+                            <button
+                                class="test-card bg-white rounded-xl p-6 text-center hover:transform hover:scale-105 transition-all duration-300"
+                                onclick="startTest('choice')"
+                            >
+                                <div
+                                    class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4"
+                                >
+                                    <span class="text-2xl">🎯</span>
+                                </div>
+                                <h3 class="text-xl font-semibold mb-2">Choice Test</h3>
+                                <p class="text-gray-600 text-sm">Choose the correct response</p>
+                            </button>
+                        </div>
+
+                        <!-- Test Arena -->
+                        <div id="test-arena" class="hidden">
+                            <div class="stats-card rounded-2xl p-8">
+                                <div class="text-center mb-6">
+                                    <h3 id="test-title" class="text-2xl font-bold mb-2">
+                                        Test Title
+                                    </h3>
+                                    <p id="test-subtitle" class="text-gray-600">
+                                        Test instructions
+                                    </p>
+                                </div>
+
+                                <div id="test-display" class="mb-6">
+                                    <div id="reaction-area" class="reaction-area test-ready">
+                                        Click to Start
+                                    </div>
+                                </div>
+
+                                <div id="test-results" class="hidden text-center">
+                                    <div class="mb-4">
+                                        <div
+                                            class="text-4xl font-bold text-green-600"
+                                            id="reaction-time"
+                                        >
+                                            -- ms
+                                        </div>
+                                        <div class="text-gray-600">Reaction Time</div>
+                                    </div>
+                                    <div class="flex justify-center space-x-4">
+                                        <button
+                                            class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors"
+                                            onclick="restartTest()"
+                                        >
+                                            Try Again
+                                        </button>
+                                        <button
+                                            class="bg-gray-600 text-white px-6 py-2 rounded-lg hover:bg-gray-700 transition-colors"
+                                            onclick="backToSelection()"
+                                        >
+                                            Back to Tests
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div id="test-instructions" class="text-center text-gray-600 mt-4">
+                                    <p>Click the area above when you're ready to begin</p>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Results Section -->
+                    <section id="results-section" class="section-content hidden">
+                        <div class="text-center mb-8">
+                            <h2 class="text-3xl font-bold text-white mb-4">Your Results</h2>
+                            <p class="text-white/80">
+                                Track your performance and see detailed analytics
+                            </p>
+                        </div>
+
+                        <!-- Statistics Cards -->
+                        <div class="grid md:grid-cols-4 gap-6 mb-8">
+                            <div class="stats-card rounded-xl p-6 text-center">
+                                <div class="text-2xl font-bold text-blue-600" id="avg-time">--</div>
+                                <div class="text-sm text-gray-600">Average Time</div>
+                            </div>
+                            <div class="stats-card rounded-xl p-6 text-center">
+                                <div class="text-2xl font-bold text-green-600" id="best-time">
+                                    --
+                                </div>
+                                <div class="text-sm text-gray-600">Best Time</div>
+                            </div>
+                            <div class="stats-card rounded-xl p-6 text-center">
+                                <div class="text-2xl font-bold text-purple-600" id="total-tests">
+                                    --
+                                </div>
+                                <div class="text-sm text-gray-600">Total Tests</div>
+                            </div>
+                            <div class="stats-card rounded-xl p-6 text-center">
+                                <div class="text-2xl font-bold text-orange-600" id="accuracy">
+                                    --
+                                </div>
+                                <div class="text-sm text-gray-600">Accuracy</div>
+                            </div>
+                        </div>
+
+                        <!-- Charts -->
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div class="stats-card rounded-xl p-6">
+                                <h3 class="text-lg font-semibold mb-4">Reaction Time Trend</h3>
+                                <canvas id="trend-chart"></canvas>
+                            </div>
+                            <div class="stats-card rounded-xl p-6">
+                                <h3 class="text-lg font-semibold mb-4">Test Type Distribution</h3>
+                                <canvas id="distribution-chart"></canvas>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- About Section -->
+                    <section id="about-section" class="section-content hidden">
+                        <div class="stats-card rounded-2xl p-8">
+                            <h2 class="text-3xl font-bold mb-6">About Human Reaction Benchmark</h2>
+                            <div class="prose max-w-none">
+                                <p class="text-lg mb-6">
+                                    The Human Reaction Benchmark Test Tool is a comprehensive
+                                    platform designed to measure, analyze, and improve human
+                                    reaction times across various stimuli and scenarios.
+                                </p>
+
+                                <h3 class="text-2xl font-semibold mb-4">Features</h3>
+                                <ul class="list-disc list-inside mb-6 space-y-2">
+                                    <li>
+                                        Multiple test types: Visual, Audio, and Choice reaction
+                                        tests
+                                    </li>
+                                    <li>Real-time performance tracking and analytics</li>
+                                    <li>Interactive charts and data visualization</li>
+                                    <li>Responsive design for all devices</li>
+                                    <li>Comprehensive logging and debugging</li>
+                                    <li>Accessible interface following WCAG guidelines</li>
+                                </ul>
+
+                                <h3 class="text-2xl font-semibold mb-4">
+                                    Technical Implementation
+                                </h3>
+                                <ul class="list-disc list-inside mb-6 space-y-2">
+                                    <li>Built with modern JavaScript and ES6+ features</li>
+                                    <li>Styled with Tailwind CSS for responsive design</li>
+                                    <li>
+                                        Animated with Motion.dev (Framer Motion) for smooth
+                                        interactions
+                                    </li>
+                                    <li>Modular architecture with reusable components</li>
+                                    <li>Comprehensive testing suite</li>
+                                    <li>Performance optimized for production</li>
+                                </ul>
+
+                                <h3 class="text-2xl font-semibold mb-4">Use Cases</h3>
+                                <ul class="list-disc list-inside space-y-2">
+                                    <li>Gaming performance optimization</li>
+                                    <li>Sports training and assessment</li>
+                                    <li>Cognitive research and studies</li>
+                                    <li>Medical and neurological assessments</li>
+                                    <li>General fitness and wellness tracking</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </main>
+
+            <!-- Footer -->
+            <footer class="glass-effect p-6">
+                <div class="max-w-6xl mx-auto text-center text-white/80">
+                    <p>
+                        &copy; 2024 Human Reaction Benchmark Tool. Built with ❤️ for performance
+                        excellence.
+                    </p>
+                </div>
+            </footer>
+        </div>
+
+        <!-- Debug Panel (Development) -->
+        <div
+            id="debug-panel"
+            class="fixed bottom-4 right-4 bg-black/80 text-white p-4 rounded-lg text-sm max-w-sm hidden"
+        >
+            <h4 class="font-semibold mb-2">Debug Console</h4>
+            <div id="debug-log" class="max-h-32 overflow-y-auto space-y-1"></div>
+            <button class="mt-2 bg-red-600 px-3 py-1 rounded text-xs" onclick="clearDebugLog()">
+                Clear
+            </button>
+        </div>
+
+        <!-- Scripts -->
+        <script src="./src/utils/logger.js"></script>
+        <script src="./src/utils/storage.js"></script>
+        <script src="./src/utils/animations.js"></script>
+        <script src="./src/components/TestEngine.js"></script>
+        <script src="./src/components/ResultsManager.js"></script>
+        <script src="./src/components/UIManager.js"></script>
+        <script src="./src/app.js"></script>
+    </body>
+</html>
